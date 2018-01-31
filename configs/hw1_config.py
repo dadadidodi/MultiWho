@@ -29,6 +29,7 @@ audio_file_format=".wav"
 
 mfcc_root_path = os.path.join(dataset_root_path, "med_mini_mfcc")
 mfcc_file_format = ".npy"
+
 #   the root path of our provided CMU Sphinx ASR transcriptions (in pkl format)
 cmu_asr_root_path=os.path.join(dataset_root_path,"med_mini_text")
 cmu_asr_file_format=".pkl"

@@ -3,7 +3,7 @@ sys.path.append("../")
 import os
 import utils as utils
 from sklearn.metrics import average_precision_score
-
+import configs.hw1_config as config
 #   a demo code illustrating how to use sklearn to evaluate average precision scores given ground-truth labels
 #   and prediction score files. You could use this function to evaluate your performance on the all_val.lst video list.
 def evaluate_ap(config):
@@ -11,7 +11,7 @@ def evaluate_ap(config):
     #   load the ground-truth file list
     gt_list_fn="example_gt_and_pred/gt.lst"
     test_video_label_list=utils.get_video_and_label_list(gt_list_fn)
-
+    avg = 0
     for event_id, event_name in config.event_id_name_dict.iteritems():
         print "Evaluating the average precision (AP) with classifier ",event_id," name: ",event_name,"..."
 
@@ -31,9 +31,10 @@ def evaluate_ap(config):
         assert(len(y_gt)==len(y_score))
 
         print "Average precision: ",average_precision_score(y_gt,y_score)
-
-    print "Finish evaluating the average precision (AP) metric on all classifiers..."
+        avg += average_precision_score(y_gt, y_score) / 3
+    print "Finish evaluating the average precision (AP) metric %f on all classifiers..."%avg
 
 
 if __name__=="__main__":
-    pass
+    evaluate_ap(config)
+

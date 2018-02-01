@@ -14,14 +14,23 @@ if __name__=="__main__":
 
     # audio track and MFCC feature extraction
 
+<<<<<<< HEAD
     audio_mfcc.extract_audio(config)
     audio_mfcc.extract_mfcc(config)
+=======
+    # audio_mfcc.extract_audio(config)
+    # audio_mfcc.extract_mfcc(config)
+>>>>>>> a9c8cedab10dae3829563c37918a3aeaeb4d40bf
 
     # bag-of-words feature representation based on ASR features
     # asr_bow.get_bow_vec(config)
 
     #TODO: bag-of-words feature representation based on MFCC features
+<<<<<<< HEAD
     # mfcc_cls.get_mfcc_vecs(config)
+=======
+    mfcc_cls.get_mfcc_vecs(config)
+>>>>>>> a9c8cedab10dae3829563c37918a3aeaeb4d40bf
 
     #TODO: svm training and testing,
 

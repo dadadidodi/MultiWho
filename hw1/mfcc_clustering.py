@@ -5,9 +5,15 @@ import utils
 import pickle
 import numpy as np
 import kmc2
+<<<<<<< HEAD
 from sklearn.cluster import MiniBatchKMeans, KMeans
 
 def get_mfcc_vecs(config, gps = ['train'], stride = 5):
+=======
+from sklearn.cluster import MiniBatchKMeans
+
+def get_mfcc_vecs(config, gps = ['train'], stride = 3):
+>>>>>>> a9c8cedab10dae3829563c37918a3aeaeb4d40bf
     #   read and concatenate train/validation/test video lists
     print("GET NUMPY MFCC FEATURES FOR %s with stride %d" % (' and '.join(gps), stride) )
     print("file path %s"% config.all_train_list_filename)
@@ -34,7 +40,11 @@ def get_mfcc_vecs(config, gps = ['train'], stride = 5):
     for mfcc_part_fn in all_files:
         npy = np.load(os.path.join(config.mfcc_root_path, mfcc_part_fn))
         mfcc_vec_num += int((npy.shape[1] + stride - 1) / stride)
+<<<<<<< HEAD
     mfcc_vecs = np.empty(shape = (mfcc_vec_num, 13))
+=======
+    mfcc_vecs = np.empty(shape = (mfcc_vec_num, 20))
+>>>>>>> a9c8cedab10dae3829563c37918a3aeaeb4d40bf
     print("........TOTAL MFCC VEC NUMS: %d"%mfcc_vecs.shape[0])
 
     st = 0
@@ -55,13 +65,19 @@ def get_mfcc_vecs(config, gps = ['train'], stride = 5):
 def kmeans_training(X, seed_num = 200):
     print('KMEANS TRAINING WITH %d DATAPOINTS EACH WITH DIMENSION %d'%(X.shape[0], X.shape[1]) )
     print("........KMEANS TRAINING BEGINS...............")
+<<<<<<< HEAD
     
+=======
+>>>>>>> a9c8cedab10dae3829563c37918a3aeaeb4d40bf
     seeding = kmc2.kmc2(X, seed_num, random_state = 11)
     print("........SEEDING PROCESSED THROUGHT KMCMC")
 
     model = MiniBatchKMeans(seed_num, init = seeding, random_state = 23).fit(X)
+<<<<<<< HEAD
     
     # model = KMeans(seed_num, random_state = 23).fit(X)
+=======
+>>>>>>> a9c8cedab10dae3829563c37918a3aeaeb4d40bf
     return model
 
 def kmeans_test(model, X):

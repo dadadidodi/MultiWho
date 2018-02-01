@@ -18,7 +18,11 @@ def train(x, y, scale = False):
         scl = StandardScaler()
         scl.fit(x)
         x = scl.transform(x)
+<<<<<<< HEAD
     clf = SVC(C = 1000, probability = True, random_state = SEED)
+=======
+    clf = SVC(C = 100000, probability = True, random_state = SEED)
+>>>>>>> a9c8cedab10dae3829563c37918a3aeaeb4d40bf
 #    clf = RandomForestClassifier(max_depth = 20, random_state = SEED)
     print(clf)
     clf.fit(x, y)

@@ -64,7 +64,11 @@ def extract_mfcc(config):
             if not os.path.exists(audio_full_fn) :
                 continue
             y, sr = librosa.load(audio_full_fn)
+<<<<<<< HEAD
             mfcc = librosa.feature.mfcc(y = y, sr = sr, hop_length = 512, n_mfcc = 13)
+=======
+            mfcc = librosa.feature.mfcc(y = y, sr = sr, hop_length = 512, n_mfcc = 20)
+>>>>>>> a9c8cedab10dae3829563c37918a3aeaeb4d40bf
             mfcc_full_fn = audio_full_fn.replace('.wav', '').replace('audio', 'mfcc')
             np.save(mfcc_full_fn, mfcc)
             print("........" + mfcc_full_fn, cnt, tot_cnt)

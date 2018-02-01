@@ -4,13 +4,10 @@ import svm_classifier as svcclf
 import numpy as np
 import pickle
 import random
-<<<<<<< HEAD
 train_name_with_labels, trainx, train_name = mfcc_cls.get_mfcc_vecs(config, ['val'])
 val_name_with_labels, valx, val_name = mfcc_cls.get_mfcc_vecs(config, ['train'])
-=======
 train_name_with_labels, trainx, train_name = mfcc_cls.get_mfcc_vecs(config)
 val_name_with_labels, valx, val_name = mfcc_cls.get_mfcc_vecs(config, ['val'])
->>>>>>> a9c8cedab10dae3829563c37918a3aeaeb4d40bf
 
 model = mfcc_cls.kmeans_training(trainx)
 train_y = mfcc_cls.kmeans_test(model, trainx)
@@ -38,17 +35,14 @@ def wrap_svc_data(y, name_with_labels, name, dim = None):
 
 
 trainxx, trainyy, _, _ = wrap_svc_data(train_y, train_name_with_labels, train_name)
-<<<<<<< HEAD
 print(trainxx.shape, len(trainyy), trainyy[:20])
 valxx, valyy, id2name, name2id = wrap_svc_data(val_y, val_name_with_labels, val_name)
 import utils
 val_all = utils.get_video_and_label_list(config.all_train_list_filename)
-=======
 
 valxx, valyy, id2name, name2id = wrap_svc_data(val_y, val_name_with_labels, val_name)
 import utils
 val_all = utils.get_video_and_label_list(config.all_val_list_filename)
->>>>>>> a9c8cedab10dae3829563c37918a3aeaeb4d40bf
 val_all = [x for x, y in val_all]
 '''
 trainxx = np.load('./trainxx.npy')

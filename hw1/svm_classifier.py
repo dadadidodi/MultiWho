@@ -6,11 +6,12 @@ import numpy as np
 from sklearn.svm import SVC
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics.pairwise import chi2_kernel
 # TODO: implement the SVM classifier training function here.
 # it should load different encoded videos features (MFCC, ASR, etc.) in all_trn.lst (validation)
 # or all_trn.lst+all_val.lst (final submission) and train corresponding classifiers for each event types.
-SEED = 11
-def train(x, y, scale = False):
+SEED = 23
+def train(x, y, scale = True, C=100):
     scl = None
     if scale:
         print("Scaling before training svm")
@@ -18,11 +19,7 @@ def train(x, y, scale = False):
         scl = StandardScaler()
         scl.fit(x)
         x = scl.transform(x)
-<<<<<<< HEAD
-    clf = SVC(C = 1000, probability = True, random_state = SEED)
-=======
-    clf = SVC(C = 100000, probability = True, random_state = SEED)
->>>>>>> a9c8cedab10dae3829563c37918a3aeaeb4d40bf
+    clf = SVC(kernel ='rbf', C = C, probability = True, random_state = SEED)
 #    clf = RandomForestClassifier(max_depth = 20, random_state = SEED)
     print(clf)
     clf.fit(x, y)

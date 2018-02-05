@@ -48,8 +48,9 @@ trainyy = np.load('./trainyy.npy')
 valxx = np.load('./valxx.npy')
 valyy = np.load('./valyy.npy')
 '''
+CC = [1, 100, 100, 10000]
 for ii in range(1,4):
-    clf, scl = svcclf.train(trainxx, trainyy[ii - 1], True)
+    clf, scl = svcclf.train(trainxx, trainyy[ii - 1], True, C = CC[ii])
     assert(max(trainyy[ii - 1]) <= 1)
     y_pred, y_proba = svcclf.test(clf, valxx, scl)
     full_y_pred = [0] * len(val_all)
@@ -60,8 +61,13 @@ for ii in range(1,4):
         vid_name = val_all[i]
         if vid_name not in name2id:
             cnt += 1
-            full_y_pred[i] = random.randint(0,2)
-            full_y_proba[i] = [0.5] * 2
+            pp = random.uniform(0, 1)
+	    if pp < 0.2:
+		full_y_pred[i] = 1
+	    else:
+	        full_y_pred[i] = 0
+	    # full_y_pred[i] = random.randint(0,2)
+            full_y_proba[i] = [0.8, 0.2]
             continue
         idx = name2id[vid_name]
         full_y_pred[i] = y_pred[idx]

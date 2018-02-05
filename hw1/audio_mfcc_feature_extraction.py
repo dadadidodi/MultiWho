@@ -57,20 +57,21 @@ def extract_mfcc(config):
         print("In processing: %d%%.....%s"% (int(100* cnt / len(all_video_label_list)), vid_full_fn) )
 
         audio_prefix=os.path.join(config.audio_root_path,vid_name + '_')
-        files = fnmatch.filter(all_files, vid_name+"*.wav")
+        files = fnmatch.filter(all_files, vid_name + '_' + "*.wav")
         print('--------' + audio_prefix, len(files), files)
         for audio_short_fn in files:
             audio_full_fn = os.path.join(config.audio_root_path, audio_short_fn)
             if not os.path.exists(audio_full_fn) :
                 continue
             y, sr = librosa.load(audio_full_fn)
-<<<<<<< HEAD
-            mfcc = librosa.feature.mfcc(y = y, sr = sr, hop_length = 512, n_mfcc = 13)
-=======
             mfcc = librosa.feature.mfcc(y = y, sr = sr, hop_length = 512, n_mfcc = 20)
->>>>>>> a9c8cedab10dae3829563c37918a3aeaeb4d40bf
+            delta = mfcc[:-1] - mfcc[1:]
+	    deltadelta = delta[:-1] - delta[1:]
+            
+#             print(mfcc.shape, delta.shape, delta.shape)
+	    full_input = np.concatenate((mfcc, delta, deltadelta), axis = 0)
             mfcc_full_fn = audio_full_fn.replace('.wav', '').replace('audio', 'mfcc')
-            np.save(mfcc_full_fn, mfcc)
+   	    np.save(mfcc_full_fn, full_input)
             print("........" + mfcc_full_fn, cnt, tot_cnt)
 
 if __name__=="__main__":

@@ -20,23 +20,29 @@ def get_bow_vec(config):
         os.mkdir(config.asr_bow_root_path)
 
     vocab_book=utils.read_object_from_pkl(config.cmu_asr_vocabbook_filename)
-
     word_len=len(vocab_book)
+    idf = np.zeros(shape=(1, word_len))
+    for k, v in vocab_book.items():
+	idf[0][v[0]] = v[1] + 1
+
     for now_video_label in all_video_label_list:
         vid_name = now_video_label[0]
         asr_filename=os.path.join(config.cmu_asr_root_path,vid_name+config.cmu_asr_file_format)
         asr_bow_filename=os.path.join(config.asr_bow_root_path,vid_name+config.asr_bow_file_format)
-
-        word_list=utils.read_object_from_pkl(asr_filename)
-
-        asr_bow_vec=np.zeros((1,word_len))
-
+        if os.path.exists(asr_filename):
+            word_list=utils.read_object_from_pkl(asr_filename)
+        else:
+	    word_list = []
+	tf = np.zeros(shape = (1, word_len))
+        for word in word_list:
+	    if word not in vocab_book:
+		continue
+            tf[0][vocab_book[word][0]] += 1
+        asr_bow_vec= (1 + np.log(tf * 1.0 + 1))/ (1 + np.log( len(all_video_label_list ) / idf ) )
         #   we randomly set the Bag-of-Words representation vector
         #   according to the number of words in ASR transcription file (this is absolutely ridiculous:)
-        asr_bow_vec[0,len(word_list)%word_len]=1
-
-        np.save(asr_bow_filename,asr_bow_vec)
-
+         
+	np.save(asr_bow_filename, tf)
 
 if __name__=="__main__":
     pass

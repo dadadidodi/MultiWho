@@ -1,10 +1,6 @@
 #!/bin/bash
+python framework.py
+python pre_mfcc_test.py
+python kmeans_test.py 
 
-# python one_v_all_test.py
-# python evaluator.py
-# read -p "Continue?" cont
-# echo cont
-
-python kmeans_test.py
-python evaluator.py
-
+python asr_test.py
